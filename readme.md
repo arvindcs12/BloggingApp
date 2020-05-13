@@ -6,8 +6,10 @@ It will generate a target folder with application jar in it
 #Step 2: Run the below command to tag and build the docker image
 
 docker build -t <your_dockerhub_id>/<app_name> .
+
 e.g. 
 docker build -t dummyuser/blogging-app .
+
 Don't miss the dot in the end of above mentioned command.
 
 #Step 3: To run the app on your local docker instance execute below command
