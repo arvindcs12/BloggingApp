@@ -6,8 +6,6 @@ public class CommentDTO {
 
 	private String content;
 
-	
-
 	public String getContent() {
 		return content;
 	}

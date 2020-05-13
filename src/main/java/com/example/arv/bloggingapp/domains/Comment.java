@@ -20,7 +20,7 @@ public class Comment {
 	private String content;
 	
 	@ManyToOne
-	private BlogPost blogPost;
+	private BlogPost blogPost = new BlogPost();
 
 	public String getId() {
 		return id;
