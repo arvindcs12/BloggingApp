@@ -5,18 +5,20 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 public class BlogPost {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	@GeneratedValue(generator = "blog_uuid")
+	@GenericGenerator(name= "blog_uuid", strategy = "uuid2")
+	private String id;
 	
 	private String title;
 	private String subtitle;
@@ -39,11 +41,11 @@ public class BlogPost {
 		this.comments = comments;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -25,7 +25,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public BlogPostDTO getBlogPostById(Long id) {
+	public BlogPostDTO getBlogPostById(String id) {
 		return blogPostRepo.findById(id).map(blog -> blogToBlogDTO(blog)).orElseThrow(ResourceNotFoundException::new);
 	}
 
@@ -40,7 +40,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public BlogPostDTO updateBlogPost(Long id, BlogPostDTO blogPostDTO) {
+	public BlogPostDTO updateBlogPost(String id, BlogPostDTO blogPostDTO) {
 		// TODO Auto-generated method stub
 		BlogPost blog = blogDTOToBlog(blogPostDTO);
 		blog.setId(id);
@@ -48,7 +48,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public void deleteBlogPost(Long id) {
+	public void deleteBlogPost(String id) {
 		blogPostRepo.deleteById(id);
 	}
 
@@ -59,7 +59,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 		blogDTO.setTitle(blog.getTitle());
 		blogDTO.setSubtitle(blog.getSubtitle());
 		blogDTO.setContent(blog.getContent());
-		System.out.println("Comments size"+ blog.getComments().size());
 		blogDTO.setComments(blog.getComments().stream().map(comment -> {
 			CommentDTO comDTO = new CommentDTO();
 			comDTO.setId(comment.getId());
@@ -77,7 +76,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 		blog.setTitle(blogPostDTO.getTitle());
 		blog.setSubtitle(blogPostDTO.getSubtitle());
 		blog.setContent(blogPostDTO.getContent());
-		//blog.setComments(blogPostDTO.getComments());
 		return blog;
 	}
 }

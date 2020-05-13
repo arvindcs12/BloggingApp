@@ -32,7 +32,7 @@ public class BlogPostController {
 	}
 	
 	@GetMapping("/{id}")
-	public BlogPostDTO getBlogPostById(@PathVariable Long id){
+	public BlogPostDTO getBlogPostById(@PathVariable String id){
 		return blogPostService.getBlogPostById(id);
 	}
 	
@@ -43,13 +43,13 @@ public class BlogPostController {
 	}
 	
 	@PutMapping({"/{id}"})
-	public BlogPostDTO updateBlogPost(@PathVariable Long id, @RequestBody BlogPostDTO blogPostDTO) {
+	public BlogPostDTO updateBlogPost(@PathVariable String id, @RequestBody BlogPostDTO blogPostDTO) {
 		return blogPostService.updateBlogPost(id, blogPostDTO);
 	}
 	
 	@DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteBlogPost(@PathVariable Long id) {
+	public void deleteBlogPost(@PathVariable String id) {
 		blogPostService.deleteBlogPost(id);
 	}
 }

@@ -5,17 +5,17 @@ import java.util.Set;
 
 public class BlogPostDTO {
 
-	private long id;
+	private String id;
 	private String title;
 	private String subtitle;
 	private String content;
 	private Set<CommentDTO> comments = new HashSet<>();
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

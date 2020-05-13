@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.arv.bloggingapp.domains.BlogPost;
 
-public interface BlogPostRepository extends JpaRepository<BlogPost, Long>{
+public interface BlogPostRepository extends JpaRepository<BlogPost, String>{
 
 }
