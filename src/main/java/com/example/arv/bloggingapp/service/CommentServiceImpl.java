@@ -32,7 +32,9 @@ public class CommentServiceImpl implements CommentService {
 	public CommentDTO postCommentToBlogPost(String id, CommentDTO commentDto) {
 		BlogPost blog = blogPostRepo.findById(id).orElseThrow(ResourceNotFoundException::new);
 
-		Comment savedComment = commentRepo.save(commentDtoToComment(id, commentDto));
+		Comment comment = commentDtoToComment(commentDto);
+		comment.getBlogPost().setId(id);
+		Comment savedComment = commentRepo.save(comment);
 		CommentDTO resultComment = commentToCommentDto(savedComment);
 
 		blog.getComments().add(savedComment);
@@ -49,14 +51,14 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public CommentDTO updateComment(String id, CommentDTO commentDto) {
-		// TODO Auto-generated method stub
-		return null;
+		Comment comment = commentDtoToComment(commentDto);
+		comment.setId(id);
+		return commentToCommentDto(commentRepo.save(comment));
 	}
 
 	@Override
 	public void deleteComment(String id) {
-		// TODO Auto-generated method stub
-
+		commentRepo.deleteById(id);
 	}
 
 	// TODO: move below methos to mapper
@@ -67,9 +69,8 @@ public class CommentServiceImpl implements CommentService {
 		return commentDTO;
 	}
 
-	private Comment commentDtoToComment(String id, CommentDTO commentDto) {
+	private Comment commentDtoToComment(CommentDTO commentDto) {
 		Comment comment = new Comment();
-		comment.getBlogPost().setId(id);
 		comment.setContent(commentDto.getContent());
 		return comment;
 	}
