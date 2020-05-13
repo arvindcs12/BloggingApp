@@ -1,5 +1,6 @@
 package com.example.arv.bloggingapp.api.v1.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class BlogPostDTO {
 	private String content;
 	private List<String> comments = new ArrayList<>();
 
+	private LocalDateTime published;
 
 	public String get_id() {
 		return _id;
@@ -56,6 +58,14 @@ public class BlogPostDTO {
 	@Override
 	public String toString() {
 		return "BlogPostDTO [_id=" + _id + ", title=" + title + ", content=" + content + ", subtitle=" + subtitle + "]";
+	}
+
+	public LocalDateTime getPublished() {
+		return published;
+	}
+
+	public void setPublished(LocalDateTime published) {
+		this.published = published;
 	}
 
 }

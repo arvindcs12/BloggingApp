@@ -1,5 +1,6 @@
 package com.example.arv.bloggingapp.domains;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -32,6 +34,9 @@ public class BlogPost {
 	private Set<Comment> comments = new HashSet<>();
 	
 	//TODO: Add set of authors
+	
+	@CreationTimestamp
+	private LocalDateTime published;
 	//TODO: add datetime field of published and updated
 
 	public Set<Comment> getComments() {
@@ -74,6 +79,14 @@ public class BlogPost {
 		this.subtitle = subtitle;
 	}
 	
+	public LocalDateTime getPublished() {
+		return published;
+	}
+
+	public void setPublished(LocalDateTime published) {
+		this.published = published;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

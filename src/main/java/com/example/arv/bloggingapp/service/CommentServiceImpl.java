@@ -52,6 +52,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public CommentDTO updateComment(String id, CommentDTO commentDto) {
 		Comment comment = commentDtoToComment(commentDto);
+		comment.setBlogPost(commentRepo.findById(id).orElseThrow(ResourceNotFoundException::new).getBlogPost());
 		comment.setId(id);
 		return commentToCommentDto(commentRepo.save(comment));
 	}
