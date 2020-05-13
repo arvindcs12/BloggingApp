@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.example.arv.bloggingapp.api.v1.models.BlogPostDTO;
-import com.example.arv.bloggingapp.api.v1.models.CommentDTO;
 import com.example.arv.bloggingapp.domains.BlogPost;
 import com.example.arv.bloggingapp.repositories.BlogPostRepository;
 
@@ -55,24 +54,18 @@ public class BlogPostServiceImpl implements BlogPostService {
 	//TODO: move below methods to mapper class
 	private BlogPostDTO blogToBlogDTO(BlogPost blog) {
 		BlogPostDTO blogDTO = new BlogPostDTO();
-		blogDTO.setId(blog.getId());
+		blogDTO.set_id(blog.getId());
 		blogDTO.setTitle(blog.getTitle());
 		blogDTO.setSubtitle(blog.getSubtitle());
 		blogDTO.setContent(blog.getContent());
-		blogDTO.setComments(blog.getComments().stream().map(comment -> {
-			CommentDTO comDTO = new CommentDTO();
-			comDTO.setId(comment.getId());
-			comDTO.setContent(comment.getContent());
-			return comDTO;
-		}).collect(Collectors.toSet()));
-
+		blogDTO.setComments(blog.getComments().stream().map(comment -> comment.getId()).collect(Collectors.toList()));
 		return blogDTO;
 	}
 	
 	
 	private BlogPost blogDTOToBlog(BlogPostDTO blogPostDTO) {
 		BlogPost blog = new BlogPost();
-		blog.setId(blogPostDTO.getId());
+		blog.setId(blogPostDTO.get_id());
 		blog.setTitle(blogPostDTO.getTitle());
 		blog.setSubtitle(blogPostDTO.getSubtitle());
 		blog.setContent(blogPostDTO.getContent());

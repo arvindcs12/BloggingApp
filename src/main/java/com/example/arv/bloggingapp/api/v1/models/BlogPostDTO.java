@@ -1,22 +1,23 @@
 package com.example.arv.bloggingapp.api.v1.models;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlogPostDTO {
 
-	private String id;
+	private String _id;
 	private String title;
 	private String subtitle;
 	private String content;
-	private Set<CommentDTO> comments = new HashSet<>();
+	private List<String> comments = new ArrayList<>();
 
-	public String getId() {
-		return id;
+
+	public String get_id() {
+		return _id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getTitle() {
@@ -43,18 +44,18 @@ public class BlogPostDTO {
 		this.subtitle = subtitle;
 	}
 
-	public Set<CommentDTO> getComments() {
+
+	public List<String> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<CommentDTO> comments) {
+	public void setComments(List<String> comments) {
 		this.comments = comments;
 	}
 
-
 	@Override
 	public String toString() {
-		return "BlogPostDTO [id=" + id + ", title=" + title + ", content=" + content + ", subtitle=" + subtitle + "]";
+		return "BlogPostDTO [_id=" + _id + ", title=" + title + ", content=" + content + ", subtitle=" + subtitle + "]";
 	}
 
 }

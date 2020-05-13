@@ -44,8 +44,6 @@ public class BootstrapData implements CommandLineRunner {
 		inspiringBooks.getComments().add(nicePost);
 		inspiringBooks.getComments().add(awesomePost);
 		
-		
-		
 		blogPostRepo.save(inspiringBooks);
 
 		BlogPost citrusFruits = new BlogPost();
@@ -56,6 +54,15 @@ public class BootstrapData implements CommandLineRunner {
 				"Most people buy citrus for the fruit or juice and then toss the peels, but there's a lot going on in those peels that would be a shame to waste; namely, the zest.");
 		blogPostRepo.save(citrusFruits);
 
+		Comment thanks = new Comment();
+		thanks.setBlogPost(citrusFruits);
+		thanks.setContent("Thanks for sharing this.");
+		
+		commentRepo.save(thanks);
+		citrusFruits.getComments().add(thanks);
+		blogPostRepo.save(citrusFruits);
+		
+		
 		System.out.println("Number of Blogs: " + blogPostRepo.count());
 
 	}

@@ -2,19 +2,11 @@ package com.example.arv.bloggingapp.api.v1.models;
 
 public class CommentDTO {
 
-	private String id;
+	private String _id;
 
 	private String content;
 
-	private BlogPostDTO blogPost;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 
 	public String getContent() {
 		return content;
@@ -24,12 +16,12 @@ public class CommentDTO {
 		this.content = content;
 	}
 
-	public BlogPostDTO getBlogPost() {
-		return blogPost;
+	public String get_id() {
+		return _id;
 	}
 
-	public void setBlogPost(BlogPostDTO blogPost) {
-		this.blogPost = blogPost;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	
