@@ -1,11 +1,15 @@
 package com.example.arv.bloggingapp.api.v1.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BlogPostDTO {
 
 	private long id;
 	private String title;
 	private String subtitle;
 	private String content;
+	private Set<CommentDTO> comments = new HashSet<>();
 
 	public long getId() {
 		return id;
@@ -39,31 +43,18 @@ public class BlogPostDTO {
 		this.subtitle = subtitle;
 	}
 
+	public Set<CommentDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<CommentDTO> comments) {
+		this.comments = comments;
+	}
+
+
 	@Override
 	public String toString() {
 		return "BlogPostDTO [id=" + id + ", title=" + title + ", content=" + content + ", subtitle=" + subtitle + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BlogPostDTO other = (BlogPostDTO) obj;
-		if (id != other.id)
-			return false;
-		return true;
 	}
 
 }

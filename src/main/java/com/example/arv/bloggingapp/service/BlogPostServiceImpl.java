@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.example.arv.bloggingapp.api.v1.models.BlogPostDTO;
+import com.example.arv.bloggingapp.api.v1.models.CommentDTO;
 import com.example.arv.bloggingapp.domains.BlogPost;
 import com.example.arv.bloggingapp.repositories.BlogPostRepository;
 
@@ -58,8 +59,17 @@ public class BlogPostServiceImpl implements BlogPostService {
 		blogDTO.setTitle(blog.getTitle());
 		blogDTO.setSubtitle(blog.getSubtitle());
 		blogDTO.setContent(blog.getContent());
+		System.out.println("Comments size"+ blog.getComments().size());
+		blogDTO.setComments(blog.getComments().stream().map(comment -> {
+			CommentDTO comDTO = new CommentDTO();
+			comDTO.setId(comment.getId());
+			comDTO.setContent(comment.getContent());
+			return comDTO;
+		}).collect(Collectors.toSet()));
+
 		return blogDTO;
 	}
+	
 	
 	private BlogPost blogDTOToBlog(BlogPostDTO blogPostDTO) {
 		BlogPost blog = new BlogPost();
@@ -67,6 +77,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 		blog.setTitle(blogPostDTO.getTitle());
 		blog.setSubtitle(blogPostDTO.getSubtitle());
 		blog.setContent(blogPostDTO.getContent());
+		//blog.setComments(blogPostDTO.getComments());
 		return blog;
 	}
 }

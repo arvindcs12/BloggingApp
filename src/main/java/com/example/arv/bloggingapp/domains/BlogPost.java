@@ -1,10 +1,15 @@
 package com.example.arv.bloggingapp.domains;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 @Entity
 public class BlogPost {
@@ -19,8 +24,20 @@ public class BlogPost {
 	@Lob
 	private String content;
 	
-	//TODO: Add set of authors and comments
+	@OneToMany
+	@JoinColumn(name="blogpost_id")
+	private Set<Comment> comments = new HashSet<>();
+	
+	//TODO: Add set of authors
 	//TODO: add datetime field of published and updated
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public long getId() {
 		return id;

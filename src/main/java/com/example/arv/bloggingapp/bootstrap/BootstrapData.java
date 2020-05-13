@@ -4,15 +4,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.example.arv.bloggingapp.domains.BlogPost;
+import com.example.arv.bloggingapp.domains.Comment;
 import com.example.arv.bloggingapp.repositories.BlogPostRepository;
+import com.example.arv.bloggingapp.repositories.CommentRepository;
 
 @Component
 public class BootstrapData implements CommandLineRunner {
 
 	private final BlogPostRepository blogPostRepo;
+	private final CommentRepository commentRepo;
 
-	public BootstrapData(BlogPostRepository blogPostRepo) {
+	public BootstrapData(BlogPostRepository blogPostRepo, CommentRepository commentRepo) {
 		this.blogPostRepo = blogPostRepo;
+		this.commentRepo = commentRepo;
 	}
 
 	@Override
@@ -24,6 +28,24 @@ public class BootstrapData implements CommandLineRunner {
 		inspiringBooks.setContent(
 				"Many of us are probably struggling with a case of cabin fever, stir-crazies, anxiety, or restlessness on a day-to-day basis these days. Many of us are probably struggling with a case of cabin fever, stir-crazies, anxiety, or restlessness on a day-to-day basis these days. Many of us are probably struggling with a case of cabin fever, stir-crazies, anxiety, or restlessness on a day-to-day basis these days.");
 
+		blogPostRepo.save(inspiringBooks);
+		
+		Comment nicePost = new Comment();
+		nicePost.setBlogPost(inspiringBooks);
+		nicePost.setContent("It is a nice post");
+		
+		commentRepo.save(nicePost);
+		
+		Comment awesomePost = new Comment();
+		awesomePost.setBlogPost(inspiringBooks);
+		awesomePost.setContent("Awesome post");
+		commentRepo.save(awesomePost);
+
+		inspiringBooks.getComments().add(nicePost);
+		inspiringBooks.getComments().add(awesomePost);
+		
+		
+		
 		blogPostRepo.save(inspiringBooks);
 
 		BlogPost citrusFruits = new BlogPost();
