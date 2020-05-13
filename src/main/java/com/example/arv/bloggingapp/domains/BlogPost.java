@@ -3,6 +3,7 @@ package com.example.arv.bloggingapp.domains;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class BlogPost {
 	@Lob
 	private String content;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name="blogpost_id")
 	private Set<Comment> comments = new HashSet<>();
 	
