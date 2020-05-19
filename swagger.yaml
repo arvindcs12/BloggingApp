@@ -1,0 +1,382 @@
+swagger: "2.0"
+info:
+  description: "This is a sample blog posts api for training"
+  version: "1.0.0"
+  title: "BlogPosts API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "example.com"
+basePath: "/"
+tags:
+- name: "blogpost"
+  description: "Everything about your blog posts"
+- name: "comments"
+  description: "Access the comments on blogpost"
+schemes:
+- "http"
+- "https"
+paths:
+  /posts:
+    post:
+      tags:
+      - "blogpost"
+      summary: "Add a new Post"
+      description: ""
+      operationId: "addPost"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Blogpost object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/BlogPostRequest"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: "#/definitions/BlogPostResponse"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+    get:
+      summary: "List posts"
+      tags:
+      - "blogpost"
+      description: "Fetches all the posts"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ListBlogPostResponse"
+  /posts/{postId}:
+    get:
+      tags:
+      - "blogpost"
+      summary: "Got post by ID"
+      description: ""
+      operationId: "getPostByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "postId"
+        in: "path"
+        description: "Unique ID of the post"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/BlogPostResponse"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+      - "blogpost"
+      summary: "Update post by ID"
+      description: ""
+      operationId: "updatePostByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "postId"
+        in: "path"
+        description: "Unique ID of the post"
+        required: true
+        type: "string"
+      - name: "body"
+        in: "body"
+        description: "Blogpost object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/BlogPostRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/BlogPostResponse"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+      - "blogpost"
+      summary: "Delete post by ID"
+      description: ""
+      operationId: "deletePostByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "postId"
+        in: "path"
+        description: "Unique ID of the post"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "No Content"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+  /posts/{postId}/comments:
+    get:
+      tags:
+      - "blogpost"
+      - "comments"
+      summary: "Get comments on a post"
+      description: ""
+      operationId: "getCommentsOnPostByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "postId"
+        in: "path"
+        description: "Unique ID of the post"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ListCommentResponse"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+      - "blogpost"
+      - "comments"
+      summary: "Create Comment on post by ID"
+      description: ""
+      operationId: "createCommentOnPostByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "postId"
+        in: "path"
+        description: "Unique ID of the post"
+        required: true
+        type: "string"
+      - name: "body"
+        in: "body"
+        description: "Cpmment object that needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/CommentRequest"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: "#/definitions/CommentResponse"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+  /comments/{commentId}:
+    get:
+      tags:
+      - "comments"
+      summary: "Got comment by ID"
+      description: ""
+      operationId: "getCommentByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "commentId"
+        in: "path"
+        description: "Unique ID of the comment"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/CommentResponse"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+      - "comments"
+      summary: "Update comment by ID"
+      description: ""
+      operationId: "updateCommentByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "commentId"
+        in: "path"
+        description: "Unique ID of the comment"
+        required: true
+        type: "string"
+      - name: "body"
+        in: "body"
+        description: "Comment object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateCommentRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/CommentResponse"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+      - "comments"
+      summary: "Delete comment by ID"
+      description: ""
+      operationId: "deletecommentByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "commentId"
+        in: "path"
+        description: "Unique ID of the comment"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "No Content"
+        400:
+          description: "Invalid request"
+        404:
+          description: "Resource not found"
+        422:
+          description: "Unprocessable entity"
+        500:
+          description: "Internal Server Error"
+
+definitions:
+  BlogPostRequest:
+    type: "object"
+    required:
+      - title
+      - content
+    properties:
+      title:
+        type: "string"
+        description: "Title of the blog post- Must be unique"
+      content:
+        type: "string"
+        description: "Content of the blog"
+      subtitle:
+        type: "string"
+        description: "Subtitle for the blog if any"
+  BlogPostResponse:
+    type: "object"
+    required: 
+      - _id
+      - title
+      - content
+      - comments
+      - published
+    properties:
+      _id:
+        type: "string"
+        description: "Unique ID of the blog post"
+      title:
+        type: "string"
+        description: "Title of the blog post"
+      content:
+        type: "string"
+        description: "Content of the blog"
+      subtitle:
+        type: "string"
+        description: "Subtitle for the blog if any"
+      comments:
+        type: "array"
+        description: "comments on the blogpost"
+        items:
+          type: "string"
+          description: "IDs of the comments"
+      published:
+        type: "string"
+        format: "date-time"
+  ListBlogPostResponse:
+    type: "array"
+    items:
+      $ref: "#/definitions/BlogPostResponse"
+  CommentRequest:
+    type: "object"
+    required: 
+    - content
+    properties:
+      content:
+        type: "string"
+        description: "Comment content"
+  UpdateCommentRequest:
+    type: "object"
+    required: 
+    - content
+    properties:
+      content:
+        type: "string"
+        description: "Comment content"
+  CommentResponse:
+    type: "object"
+    required: 
+    - _id
+    - content
+    - published
+    properties:
+      _id:
+        type: "string"
+        description: "uniques id of the comment"
+      content: 
+        type: "string"
+        description: "content of the comment"
+  ListCommentResponse:
+    type: "array"
+    items:
+      $ref: "#/definitions/CommentResponse"
